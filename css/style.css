@@ -1,0 +1,39 @@
+* {
+    padding: 0%;
+    margin: 0;
+}
+
+.jumbotron, .content, .fitur.img-fitur {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.logo {
+
+    width: 184px;
+}
+
+.navbar a {
+    margin-left: 50px;
+    color: rgb(29, 25, 25);
+}
+
+.content img {
+    width: 400px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+
+.content p {
+    width: 600px;
+}
+
+.img-fitur {
+    display: flex;
+    justify-content: left;
+}
+
+.img-fitur img {
+    width: 1025px;
+}
