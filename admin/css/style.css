@@ -90,5 +90,58 @@ a {
 
 .jumbotronBeranda {
     background-color: rgba(44, 185, 120, 1);
+    margin-bottom: 50px;
+}
 
+/* STYLINE AKUN */
+
+.akun .username.password, .informasiAdmin .noHp.noKtp {
+    display: flex;
+    justify-content: space-between;
+}
+
+.akun .username.password input, .informasiAdmin .noHp.noKtp input {
+    width: 100%;
+}
+
+.profil .foto img {
+    width: 200px;
+    margin-right: 50px;
+}
+
+.profil {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    margin: auto;
+}
+
+.profil .data {
+    flex-grow: 2;
+}
+
+.akun {
+    margin-bottom: 50px;
+}
+
+.button {
+    display: flex;
+    justify-content: end;
+}
+
+.btn.editAkun {
+    background-color: rgba(44, 185, 120, 1);
+    border-color: rgba(44, 185, 120, 1);
+    width: 20%;
+    margin-right: 10px;
+} 
+
+.btn.cancel {
+    background-color: rgb(185, 44, 44);
+    border-color: rgb(185, 44, 44);
+    width: 20%;
+} 
+
+.form-control.noHp {
+    width: 100%;
 }
