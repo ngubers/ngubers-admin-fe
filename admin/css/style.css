@@ -1,0 +1,94 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter';
+    color: rgb(35, 35, 35);
+}
+
+.jumbotron, .jumbotronBeranda{
+    display: flex;
+    justify-content: space-between;
+}
+
+.jumbotron img, .jumbotronBeranda img {
+    padding: 50px;
+}
+
+.jumbotron .navbar, .jumbotronBeranda .navbarBeranda {
+    background-color: rgba(44, 185, 120, 1);
+    width: 50%;    
+    /* margin-right: 50px; */
+    display: inline-block;
+    text-align: right;
+    padding-top: 50px;
+    padding-right: 50px;
+}
+
+a {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+
+/* STYLING registrasi.html */
+
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.banner {
+    background-color: rgba(44, 185, 120, 1);
+    width: 50%;
+    padding: 30px;
+}
+
+.form {
+    width: 30%;
+    padding: 30px;
+    margin: auto;
+}
+
+.form h1 {
+    font-weight: bolder;
+    color: rgb(82, 80, 80);
+    margin-bottom: 70px;
+    margin-top: 50px;
+}
+
+.logo img {
+    width: 300px;
+}
+
+.banner .image img {
+    width: 500px;
+    position: fixed;
+    bottom: 0;
+    right: 0%;
+}
+
+.banner .text h1 {
+    color: white;
+    font-weight: bolder;
+    font-size: 80px;
+    width: 50%;
+    margin-left: 150px;
+}
+
+.btn {
+    background-color: rgba(44, 185, 120, 1);
+    border-color: rgba(44, 185, 120, 1);
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 200px;
+} 
+
+
+/* STYLING BERANDA */
+
+.jumbotronBeranda {
+    background-color: rgba(44, 185, 120, 1);
+
+}

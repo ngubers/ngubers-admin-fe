@@ -1,0 +1,117 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter';
+    color: rgb(35, 35, 35);
+}
+
+.jumbotron{
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.jumbotron img {
+    padding: 20px;
+}
+
+.jumbotron a {
+    margin: 20px;
+    color: rgb(35, 35, 35);
+    text-decoration: none;
+}
+
+/* STYLING registrasi.html */
+
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.banner {
+    background-color: rgba(44, 185, 120, 1);
+    width: 50%;
+    padding: 30px;
+}
+
+.form {
+    width: 50%;
+    padding: 30px;
+}
+
+.form h1 {
+    font-weight: bolder;
+    color: rgb(82, 80, 80);
+}
+
+.logo img {
+    width: 300px;
+}
+
+.banner .image img {
+    width: 500px;
+    position: fixed;
+    bottom: 0;
+    right: 0%;
+}
+
+.banner .text h1 {
+    color: white;
+    font-weight: bolder;
+    font-size: 70px;
+}
+
+.banner .text p {
+    color: white;
+    font: bold;
+    font-size: 40px;
+}
+
+.btn {
+    background-color: rgba(44, 185, 120, 1);
+    border-color: rgba(44, 185, 120, 1);
+}
+
+/* STYLING index.html */
+
+.content-landingpage {
+    margin-left: 90px;
+}
+
+.content-landingpage {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-landingpage img {
+    width: 400px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+
+.content-landingpage p {
+    width: 450px;
+    margin-right: 300px;
+    font-size: 20px;
+}
+
+.content-landingpage h1 {
+    font-weight: bolder;
+    color: rgb(65, 65, 65);
+    font-size: 50px;
+}
+
+.fitur {
+    margin-left: 50px;
+}
+
+.img-fitur {
+    display: flex;
+    justify-content: left;
+}
+
+.img-fitur img {
+    width: 330px;
+    padding: 10px;
+}
