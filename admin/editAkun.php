@@ -1,3 +1,11 @@
+<?php session_start(); ?>
+<?php include "../koneksi.php"; 
+
+$id_admin = $_SESSION["admin"]["id"];
+$ambil = $koneksi->query("SELECT * FROM admin WHERE id='$id_admin'");
+$pecah = $ambil->fetch_assoc();
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,7 +20,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter|Nunito|Trirong">
 
-    <title>Form Pendaftaran Member Nguber</title>
+    <title>Form Edit Member Nguber</title>
   </head>
   <body>
     <div class="jumbotronBeranda">
@@ -36,55 +44,58 @@
 
       <div class="data">
         <div class="akun">
-          <p><b>Akun</b></p>
-          <hr>
-          <br>
-          <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email</label>
-              <input type="email" class="form-control" id="exampleInputEmail1">
-            </div>
-            <div class="username password">
-              <div class="mb-3">
-                <label for="exampleInputUsername" class="form-label">Username</label>
-                <input type="text" class="form-control" id="exampleInputUsername">
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-              </div>
-            </div>
-          </form>
         </div>
 
         <div class="informasiAdmin">
-          <p><b>Informasi Admin</b></p>
+          <p><b>Informasi Akun</b></p>
           <hr>
           <br>
-          <form>
-            <div class="mb-3">
+          <form method="POST">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php echo $pecah["email"]?>">
+              </div>
+              <div class="username password">
+                <div class="mb-3">
+                  <label for="exampleInputUsername" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="exampleInputUsername" name="username" value="<?php echo $pecah["nama_lengkap"]?>">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $pecah["password"]?>">
+                </div>
+              <div class="mb-3">
               <label for="exampleInputNama1" class="form-label">Nama</label>
-              <input type="text" class="form-control" id="exampleInputNama1">
+              <input type="text" class="form-control" id="exampleInputNama1" name="nama" value="<?php echo $pecah["nama_lengkap"]?>">
             </div>
             <div class="mb-3">
               <label for="exampleInputAlamat1" class="form-label">Alamat</label>
-              <input type="text" class="form-control" id="exampleInputAlamat1">
+              <input type="text" class="form-control" id="exampleInputAlamat1" name="alamat" value="<?php echo $pecah["alamat"]?>">
             </div>
             <div class="noHp noKtp">
               <div class="mb-3">
                 <label for="exampleInputNomorHp" class="form-label">Nomor HP</label>
-                <input type="text" class="form-control" id="exampleInputNomorHp">
+                <input type="text" class="form-control" id="exampleInputNomorHp" name="nomor" value="<?php echo $pecah["no_hp"]?>">
               </div>
               <div class="mb-3">
                 <label for="exampleInputNomorKTP" class="form-label">Nomor KTP</label>
-                <input type="text" class="form-control" id="exampleInputNomorKTP">
+                <input type="text" class="form-control" id="exampleInputNomorKTP" name="ktp" value="<?php echo $pecah["no_ktp"]?>">
               </div>
             </div> 
             <div class="button">
-              <button type="submit" class="btn btn-primary editAkun"><a href="akun.html">Simpan</a></button>
-              <button class="btn btn-primary cancel"><a href="akun.html">Cancel</a></button>
+              <button type="submit" class="btn btn-primary editAkun" name="ubah"><a>Simpan</a></button>
+              <button class="btn btn-primary cancel"><a href="akun.php">Cancel</a></button>
             </div>         
           </form>
+          <?php
+          if (isset($_POST['ubah']))
+          {
+            $koneksi->query("UPDATE admin SET nama_lengkap='$_POST[nama]',email='$_POST[email]',password='$_POST[pass]',alamat='$_POST[alamat]', no_hp='$_POST[nomor]', no_ktp='$_POST[ktp]' WHERE id = '$id_admin'");
+            echo "<script>alert ('data telah diubah'); </script>";
+            echo "<div class='alert alert-info'>Data Berhasil diubah</div>";
+            echo "<meta http-equiv='refresh' content='1;url=akun.php'>";
+          }
+          ?>
         </div>
       </div>
     </div>
@@ -95,9 +106,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
   </body>
 </html>
