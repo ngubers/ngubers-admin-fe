@@ -1,3 +1,30 @@
+<?php 
+
+require 'koneksi.php';
+
+// cek apakah submit sudah ditekan
+if ( isset($_POST["submit"]) ) {
+
+  if (tambah($_POST) > 0) {
+      echo "
+          <script>
+              alert('Data berhasil ditambahkan!');
+              document.location.href = 'index.html';
+          </script>
+          ";
+  } else {
+      echo "
+          <script>
+              alert('Data gagal ditambahkan!');
+              // document.location.href = 'registrasi.php';
+          </script>
+          ";
+  };
+};
+
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -29,36 +56,36 @@
         <div class="form">
             <h1>Formulir Pendaftaran</h1>
             <p>Lihat ketentuan pendaftaran <a href="">di sini</a></p>
-            <form>
+            <form action="" method="post">
                 <div class="mb-3">
                   <label for="nama" class="form-label">Nama Lengkap</label>
-                  <input type="text" class="form-control" id="nama">
+                  <input type="text" class="form-control" name="nama" id="nama">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
                 </div>
                 <div class="mb-3">
                   <label for="hp" class="form-label">No. Telepon</label>
-                  <input type="text" class="form-control" id="hp">
+                  <input type="text" class="form-control" name="hp" id="hp">
                 </div>
                 <div class="mb-3">
                   <label for="alamat" class="form-label">Alamat</label>
-                  <input type="text" class="form-control" id="alamat">
+                  <input type="text" class="form-control" name="alamat" id="alamat">
                 </div>
                 <div class="mb-3">
                   <label for="ktp" class="form-label">No. KTP</label>
-                  <input type="text" class="form-control" id="ktp">
+                  <input type="text" class="form-control" name="ktp" id="ktp">
                 </div>
                 <div class="mb-3">
                   <label for="berkas" class="form-label">Upload Berkas</label>
-                  <input type="file" class="form-control" id="berkas">
+                  <input type="file" class="form-control" name="berkas" id="berkas">
                 </div>
-                <button type="submit" class="btn btn-primary">Kirim</button>
+                <button type="submit" name="submit" class="btn btn-primary">Kirim</button>
               </form>
         </div>
 

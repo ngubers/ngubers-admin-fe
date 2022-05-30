@@ -1,6 +1,6 @@
-<?php session_start(); ?>
 <?php include "../koneksi.php"; 
 
+// session_start();
 $id_admin = $_SESSION["admin"]["id"];
 $ambil = $koneksi->query("SELECT * FROM admin WHERE id='$id_admin'");
 $pecah = $ambil->fetch_assoc();
