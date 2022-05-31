@@ -1,18 +1,16 @@
 <?php
-$koneksi = new mysqli ("localhost","root","","nguber");
+$koneksi = new mysqli ("localhost","root","","gojek");
 
-session_start();
-
-$id_admin = $_SESSION["admin"]["id"];
-$ambil = $koneksi->query("SELECT * FROM admin WHERE id='$id_admin'");
-$pecah = $ambil->fetch_assoc();
+// $id_admin = $_SESSION["admin"]["id"];
+// $ambil = $koneksi->query("SELECT * FROM admin WHERE id='$id_admin'");
+// $pecah = $ambil->fetch_assoc();
 
 if(mysqli_connect_error()){
 	echo 'Gagal melakukan koneksi ke Database : '.mysqli_connect_error();
 }
 
 
-$conn = mysqli_connect("localhost", "root", "", "nguber");
+$conn = mysqli_connect("localhost", "root", "", "gojek");
 
 
 // ambil data dari database
@@ -35,7 +33,7 @@ function query($query) {
 // fungsi tambah
 function tambah($data) {
     global $conn;
-    global $id_admin;
+    // global $id_admin;
 
     // ambil data dari dalam form
     $nama    = $data["nama"];
@@ -48,7 +46,7 @@ function tambah($data) {
 
     // insert into table 
     $query = "INSERT INTO driver_recruitments
-              VALUES('', '$id_admin', '$nama', '$alamat', '$email', '$password', '$hp', '$ktp', '$berkas', '1')
+              VALUES('', '1', '$nama', '$alamat', '$email', '$password', '$hp', '$ktp', '$berkas', '1')
               ";
 
     mysqli_query($conn, $query);
