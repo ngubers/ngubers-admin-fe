@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start();
 $admin=$_SESSION['admin'];
@@ -24,6 +25,15 @@ $pass = $data['data']['password'];
 $alamat = $data['data']['address'];
 $no_hp = $data['data']['phone_number'];
 $no_ktp = $data['data']['no_ktp'];
+=======
+<?php 
+session_start();
+include "../koneksi.php"; 
+
+$id_admin = $_SESSION["admin"]["id"];
+$ambil = $koneksi->query("SELECT * FROM admin WHERE id='$id_admin'");
+$pecah = $ambil->fetch_assoc();
+>>>>>>> 7b0525a9592a43e5a9f8648943ce1f439be0eb92
 ?>
 <!doctype html>
 <html lang="en">
