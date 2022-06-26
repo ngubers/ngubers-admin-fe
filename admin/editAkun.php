@@ -1,11 +1,30 @@
-<?php session_start(); ?>
-<?php include "../koneksi.php"; 
-
-$id_admin = $_SESSION["admin"]["id"];
-$ambil = $koneksi->query("SELECT * FROM admin WHERE id='$id_admin'");
-$pecah = $ambil->fetch_assoc();
+<?php
+session_start();
+$admin=$_SESSION['admin'];
+$id_admin = $admin['id'];
+$url = "http://localhost:3002/api/admin/$id_admin";
+$header = "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWQ1NmUzNmRlMjFiYzNjYjJlMTY1ZCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjU0NTY0OTI5fQ.5q4MY7ey5JgL17TYP0HViM9UQN9leWbfK6rJwtJfOtM";
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL,$url); 
+curl_setopt($ch, CURLOPT_HTTPHEADER,array('Content-Type: application/json',$header));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+$output = curl_exec($ch);
+if ($e = curl_error($ch)){
+  echo $e;
+}
+else {
+  $data = json_decode($output, true);
+  // var_dump($decoded);
+}
+curl_close($ch);
+$nama = $data['data']['full_name'];
+$email = $data['data']['email'];
+$pass = $data['data']['password'];
+$alamat = $data['data']['address'];
+$no_hp = $data['data']['phone_number'];
+$no_ktp = $data['data']['no_ktp'];
 ?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -29,11 +48,11 @@ $pecah = $ambil->fetch_assoc();
         </div>
         <div class="navbarBeranda">
           <a href="beranda.html">Beranda</a>
-          <a href="reqruitment.html">Reqruitment</a>
+          <a href="reqruitment.php">Reqruitment</a>
           <a href="dataDriver.html">Data Driver</a>
           <a href="dataCustomer.html">Data Customer</a>
           <a href="dataTransaksi.html">Data Transaksi</a>
-          <b><u><a href="akun.html">Akun</a></u></b>
+          <b><u><a href="akun.php">Akun</a></u></b>
         </div>
     </div>
 
@@ -53,49 +72,74 @@ $pecah = $ambil->fetch_assoc();
           <form method="POST">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php echo $pecah["email"]?>">
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php echo $email?>">
               </div>
               <div class="username password">
                 <div class="mb-3">
                   <label for="exampleInputUsername" class="form-label">Username</label>
-                  <input type="text" class="form-control" id="exampleInputUsername" name="username" value="<?php echo $pecah["nama_lengkap"]?>">
+                  <input type="text" class="form-control" id="exampleInputUsername" name="username" value="<?php echo $nama?>">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $pecah["password"]?>">
+                  <input type="password" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $pass?>">
                 </div>
               <div class="mb-3">
               <label for="exampleInputNama1" class="form-label">Nama</label>
-              <input type="text" class="form-control" id="exampleInputNama1" name="nama" value="<?php echo $pecah["nama_lengkap"]?>">
+              <input type="text" class="form-control" id="exampleInputNama1" name="nama" value="<?php echo $nama?>">
             </div>
             <div class="mb-3">
               <label for="exampleInputAlamat1" class="form-label">Alamat</label>
-              <input type="text" class="form-control" id="exampleInputAlamat1" name="alamat" value="<?php echo $pecah["alamat"]?>">
+              <input type="text" class="form-control" id="exampleInputAlamat1" name="alamat" value="<?php echo $alamat?>">
             </div>
             <div class="noHp noKtp">
               <div class="mb-3">
                 <label for="exampleInputNomorHp" class="form-label">Nomor HP</label>
-                <input type="text" class="form-control" id="exampleInputNomorHp" name="nomor" value="<?php echo $pecah["no_hp"]?>">
+                <input type="text" class="form-control" id="exampleInputNomorHp" name="nomor" value="<?php echo $no_hp?>">
               </div>
               <div class="mb-3">
                 <label for="exampleInputNomorKTP" class="form-label">Nomor KTP</label>
-                <input type="text" class="form-control" id="exampleInputNomorKTP" name="ktp" value="<?php echo $pecah["no_ktp"]?>">
+                <input type="text" class="form-control" id="exampleInputNomorKTP" name="ktp" value="<?php echo $no_ktp?>">
               </div>
-            </div> 
+            </div>
             <div class="button">
               <button type="submit" class="btn btn-primary editAkun" name="ubah"><a>Simpan</a></button>
               <button class="btn btn-primary cancel"><a href="akun.php">Cancel</a></button>
-            </div>         
+            </div>
           </form>
           <?php
-          if (isset($_POST['ubah']))
+          if (isset($_POST["ubah"]))
           {
-            $koneksi->query("UPDATE admin SET nama_lengkap='$_POST[nama]',email='$_POST[email]',password='$_POST[pass]',alamat='$_POST[alamat]', no_hp='$_POST[nomor]', no_ktp='$_POST[ktp]' WHERE id = '$id_admin'");
-            echo "<script>alert ('data telah diubah'); </script>";
-            echo "<div class='alert alert-info'>Data Berhasil diubah</div>";
-            echo "<meta http-equiv='refresh' content='1;url=akun.php'>";
-          }
-          ?>
+            $url = "http://localhost:3002/api/admin/$id_admin";
+            $header = array(
+              "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWQ1NmUzNmRlMjFiYzNjYjJlMTY1ZCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjU0NTY0OTI5fQ.5q4MY7ey5JgL17TYP0HViM9UQN9leWbfK6rJwtJfOtM"
+            );
+
+            $array = array(
+                "full_name" => $_POST['nama'],
+                "email" => $_POST["email"],
+                "password" => $_POST["pass"],
+                "phone_number" => $_POST['nomor'],
+                "address" => $_POST['alamat'],
+                "no_ktp" => $_POST['ktp']
+            );
+            $data = http_build_query($array);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            $output = curl_exec($ch);
+            if ($e = curl_error($ch)){
+                echo $e;
+            }
+            else {
+                echo "<script>alert('data berhasil diupdate')</script>";
+				        echo "<script>location='akun.php';</script>";
+            }
+            curl_close($ch);
+        }
+        ?>
         </div>
       </div>
     </div>

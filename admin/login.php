@@ -1,8 +1,3 @@
-<?php 
-session_start() ;
-include '../koneksi.php';
-?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -43,23 +38,38 @@ include '../koneksi.php';
               <button type="submit" class="btn btn-primary" name="login">Login</button>
           </form>
           <?php
-         if (isset($_POST['login']))
-         {
-           $ambil= $koneksi->query("SELECT * FROM admin WHERE email='$_POST[email]' AND password ='$_POST[pass]'");
-           $cocok = $ambil->num_rows;
-           if ($cocok==1)
-           {
-           $_SESSION['admin']=$ambil->fetch_assoc();
-           echo "<div class='alert alert-info'>Login sukses</div>";
-           echo "<meta http-equiv='refresh' content='1;url=akun.php'>";
-         }
-         else
-         {
-          echo "<div class='alert alert-danger'>Login gagal</div>";
-         }
+          session_start();
+          if (isset($_POST["login"]))
+          {
+            $url = "http://localhost:3002/login";
 
-         }
-         ?>
+            $email=$_POST["email"];
+			$password=$_POST["pass"];
+
+            $array = array(
+                "email" => $email,
+                "password" => $password
+            );
+            $data = http_build_query($array);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            $output = curl_exec($ch);
+            if ($e = curl_error($ch)){
+                echo $e;
+            }
+            else {
+                $data = json_decode($output, true);
+                // var_dump($data);
+                $_SESSION['admin'] = $data;
+                echo "<script>alert('anda berhasil login')</script>";
+				echo "<script>location='akun.php';</script>";
+            }
+            curl_close($ch);
+        }
+        ?>
         </div>
         <div class="banner">
             <div class="text">
